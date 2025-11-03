@@ -16,14 +16,14 @@ const DashboardTabs: React.FC<DashboardTabsProps> = ({ selectedTab, onSelectTab 
   ]
 
   return (
-    <div className="flex flex-wrap justify-center mb-8 space-x-2 md:space-x-4">
+    <div className="flex flex-wrap justify-center mb-10 gap-3">
       {tabs.map((tab) => (
         <button
           key={tab.key}
-          className={`px-4 py-3 mb-2 rounded-lg shadow-md transform hover:scale-105 transition duration-200 ${
+          className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
             selectedTab === tab.key
-              ? `bg-${tab.color}-600 text-white shadow-lg`
-              : 'bg-white text-gray-700 hover:bg-gray-100 border'
+              ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105'
+              : 'bg-card text-foreground hover:bg-muted border border-border hover-scale'
           }`}
           onClick={() => onSelectTab(tab.key)}
         >

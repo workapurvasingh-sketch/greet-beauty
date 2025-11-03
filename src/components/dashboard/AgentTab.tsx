@@ -82,8 +82,8 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
   }, [])
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Master Agents</h2>
+    <div className="glass-card p-8 rounded-2xl">
+      <h2 className="text-3xl font-bold mb-8 gradient-text">Master Agents</h2>
       <form
         onSubmit={async (e) => {
           e.preventDefault()
@@ -172,22 +172,22 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
         className="mb-6 space-y-4 bg-gray-50 p-4 rounded-lg"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="name" placeholder="Name" value={editingAgent ? editingAgent.name : newAgent.name} onChange={e => editingAgent ? setEditingAgent({...editingAgent, name: e.target.value}) : setNewAgent({...newAgent, name: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 transition" required />
-          <input name="slug" placeholder="Slug" value={editingAgent ? editingAgent.slug : newAgent.slug} onChange={e => editingAgent ? setEditingAgent({...editingAgent, slug: e.target.value}) : setNewAgent({...newAgent, slug: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 transition" required />
+          <input name="name" placeholder="Name" value={editingAgent ? editingAgent.name : newAgent.name} onChange={e => editingAgent ? setEditingAgent({...editingAgent, name: e.target.value}) : setNewAgent({...newAgent, name: e.target.value})} className="input" required />
+          <input name="slug" placeholder="Slug" value={editingAgent ? editingAgent.slug : newAgent.slug} onChange={e => editingAgent ? setEditingAgent({...editingAgent, slug: e.target.value}) : setNewAgent({...newAgent, slug: e.target.value})} className="input" required />
         </div>
-        <input name="model" placeholder="Model" value={editingAgent ? editingAgent.model : newAgent.model} onChange={e => editingAgent ? setEditingAgent({...editingAgent, model: e.target.value}) : setNewAgent({...newAgent, model: e.target.value})} className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 transition" required />
-        <textarea name="instructions" placeholder="Instructions" value={editingAgent ? editingAgent.instructions || '' : newAgent.instructions} onChange={e => editingAgent ? setEditingAgent({...editingAgent, instructions: e.target.value}) : setNewAgent({...newAgent, instructions: e.target.value})} className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 transition" rows={3}></textarea>
+        <input name="model" placeholder="Model" value={editingAgent ? editingAgent.model : newAgent.model} onChange={e => editingAgent ? setEditingAgent({...editingAgent, model: e.target.value}) : setNewAgent({...newAgent, model: e.target.value})} className="input" required />
+        <textarea name="instructions" placeholder="Instructions" value={editingAgent ? editingAgent.instructions || '' : newAgent.instructions} onChange={e => editingAgent ? setEditingAgent({...editingAgent, instructions: e.target.value}) : setNewAgent({...newAgent, instructions: e.target.value})} className="input" rows={3}></textarea>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="base_url" placeholder="Base URL" value={editingAgent ? editingAgent.base_url : newAgent.base_url} onChange={e => editingAgent ? setEditingAgent({...editingAgent, base_url: e.target.value}) : setNewAgent({...newAgent, base_url: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 transition" required />
-          <input name="api_key" placeholder="API Key" value={editingAgent ? editingAgent.api_key : newAgent.api_key} onChange={e => editingAgent ? setEditingAgent({...editingAgent, api_key: e.target.value}) : setNewAgent({...newAgent, api_key: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 transition" required />
+          <input name="base_url" placeholder="Base URL" value={editingAgent ? editingAgent.base_url : newAgent.base_url} onChange={e => editingAgent ? setEditingAgent({...editingAgent, base_url: e.target.value}) : setNewAgent({...newAgent, base_url: e.target.value})} className="input" required />
+          <input name="api_key" placeholder="API Key" value={editingAgent ? editingAgent.api_key : newAgent.api_key} onChange={e => editingAgent ? setEditingAgent({...editingAgent, api_key: e.target.value}) : setNewAgent({...newAgent, api_key: e.target.value})} className="input" required />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input name="max_tokens" type="number" placeholder="Max Tokens" value={editingAgent ? editingAgent.max_tokens || '' : newAgent.max_tokens} onChange={e => editingAgent ? setEditingAgent({...editingAgent, max_tokens: parseInt(e.target.value)}) : setNewAgent({...newAgent, max_tokens: parseInt(e.target.value)})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 transition" />
-          <select name="status" value={editingAgent ? editingAgent.status : newAgent.status} onChange={e => editingAgent ? setEditingAgent({...editingAgent, status: e.target.value}) : setNewAgent({...newAgent, status: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 transition">
+          <input name="max_tokens" type="number" placeholder="Max Tokens" value={editingAgent ? editingAgent.max_tokens || '' : newAgent.max_tokens} onChange={e => editingAgent ? setEditingAgent({...editingAgent, max_tokens: parseInt(e.target.value)}) : setNewAgent({...newAgent, max_tokens: parseInt(e.target.value)})} className="input" />
+          <select name="status" value={editingAgent ? editingAgent.status : newAgent.status} onChange={e => editingAgent ? setEditingAgent({...editingAgent, status: e.target.value}) : setNewAgent({...newAgent, status: e.target.value})} className="input">
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
-          <select name="accessibility" value={editingAgent ? editingAgent.accessibility : newAgent.accessibility} onChange={e => editingAgent ? setEditingAgent({...editingAgent, accessibility: e.target.value}) : setNewAgent({...newAgent, accessibility: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 transition">
+          <select name="accessibility" value={editingAgent ? editingAgent.accessibility : newAgent.accessibility} onChange={e => editingAgent ? setEditingAgent({...editingAgent, accessibility: e.target.value}) : setNewAgent({...newAgent, accessibility: e.target.value})} className="input">
             <option value="public">Public</option>
             <option value="private">Private</option>
           </select>
@@ -195,7 +195,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
 
         {/* Knowledge Bases Multi-Select */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Select Knowledge Bases</label>
+          <label className="block text-sm font-medium text-foreground mb-2">Select Knowledge Bases</label>
           <select
             multiple
             value={editingAgent ? (editingAgent.knowledgebase_ids || []) : newAgent.knowledgebase_ids}
@@ -207,7 +207,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
                 setNewAgent({...newAgent, knowledgebase_ids: selected})
               }
             }}
-            className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 transition"
+            className="input"
           >
             {Array.isArray(kbs) && kbs.map(kb => (
               <option key={kb.knowledgebase.id} value={kb.knowledgebase.id}>
@@ -219,7 +219,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
 
         {/* MCP Servers Multi-Select */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Select MCP Servers</label>
+          <label className="block text-sm font-medium text-foreground mb-2">Select MCP Servers</label>
           <select
             multiple
             value={editingAgent ? (editingAgent.mcp_server_ids || []) : newAgent.mcp_server_ids}
@@ -231,7 +231,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
                 setNewAgent({...newAgent, mcp_server_ids: selected})
               }
             }}
-            className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 transition"
+            className="input"
           >
             {Array.isArray(mcps) && mcps.map(mcp => (
               <option key={mcp.id} value={mcp.id}>
@@ -243,7 +243,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
 
         {/* Triggers Multi-Select */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Select Triggers</label>
+          <label className="block text-sm font-medium text-foreground mb-2">Select Triggers</label>
           <select
             multiple
             value={editingAgent ? (editingAgent.trigger_ids || []) : newAgent.trigger_ids}
@@ -255,7 +255,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
                 setNewAgent({...newAgent, trigger_ids: selected})
               }
             }}
-            className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-blue-500 transition"
+            className="input"
           >
             {Array.isArray(triggers) && triggers.map(trigger => (
               <option key={trigger.id} value={trigger.id}>
@@ -266,9 +266,9 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
         </div>
 
         {/* Suggestion Prompts Section */}
-        <div className="border-t pt-4">
+        <div className="border-t border-border pt-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-medium text-gray-800">Suggestion Prompts</h3>
+            <h3 className="text-lg font-semibold text-foreground">Suggestion Prompts</h3>
             <button
               type="button"
               onClick={() => {
@@ -280,7 +280,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
                   setPromptForms([...promptForms, {id: newId, prompt_title: '', prompt: ''}])
                 }
               }}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
+              className="btn bg-success text-success-foreground hover:bg-success/90"
             >
               + Add Another Prompt
             </button>
@@ -292,12 +292,12 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
               const isExistingForm = 'isExisting' in form && form.isExisting
               const dbId = 'dbId' in form ? form.dbId : undefined
               return (
-                <div key={form.id} className={`p-4 rounded-lg border relative ${isExistingForm ? 'bg-blue-50' : 'bg-green-50'}`}>
+                <div key={form.id} className={`p-4 rounded-lg border border-border relative ${isExistingForm ? 'bg-accent/5' : 'bg-success-light'}`}>
                   <div className="flex justify-between items-center mb-3">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-medium text-gray-700">Prompt {index + 1}</h4>
+                      <h4 className="text-sm font-semibold text-foreground">Prompt {index + 1}</h4>
                       {isExistingForm && (
-                        <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Existing</span>
+                        <span className="badge bg-accent/10 text-accent">Existing</span>
                       )}
                     </div>
                     {(editingAgent ? editingAgentPrompts : promptForms).length > 1 && (
@@ -341,7 +341,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
                           setPromptForms(updatedForms)
                         }
                       }}
-                      className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 transition text-sm"
+                      className="input text-sm"
                     />
                     <textarea
                       placeholder="Prompt Content"
@@ -357,7 +357,7 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
                           setPromptForms(updatedForms)
                         }
                       }}
-                      className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 transition text-sm"
+                      className="input text-sm"
                       rows={3}
                     />
                   </div>
@@ -371,8 +371,8 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
             const currentForms = editingAgent ? editingAgentPrompts : promptForms
             const validPrompts = currentForms.filter(f => f.prompt_title.trim() && f.prompt.trim())
             return validPrompts.length > 0 && (
-              <div className="mt-4 p-3 bg-blue-50 rounded-lg border">
-                <p className="text-sm text-blue-800">
+              <div className="mt-4 p-4 bg-accent/10 rounded-lg border border-accent/20">
+                <p className="text-sm text-foreground">
                   <strong>{validPrompts.length}</strong> prompt{validPrompts.length !== 1 ? 's' : ''} will be {editingAgent ? 'updated for' : 'created with'} the agent.
                 </p>
               </div>
@@ -381,21 +381,26 @@ const AgentTab: React.FC<AgentTabProps> = ({ onChatWithAgent }) => {
         </div>
 
         <div className="flex space-x-4">
-          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition duration-200">{editingAgent ? 'Update Agent' : 'Create Agent'}</button>
-          {editingAgent && <button type="button" onClick={() => setEditingAgent(null)} className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition duration-200">Cancel</button>}
+          <button type="submit" className="btn-primary px-6 py-3 font-semibold">{editingAgent ? 'Update Agent' : 'Create Agent'}</button>
+          {editingAgent && <button type="button" onClick={() => setEditingAgent(null)} className="btn-secondary px-6 py-3 font-semibold">Cancel</button>}
         </div>
       </form>
-      <ul className="space-y-2">
+      <ul className="space-y-3 mt-8">
         {agents.map(agent => (
-          <li key={agent.id} className="bg-gradient-to-r from-blue-100 to-blue-200 p-4 rounded-lg shadow-md flex justify-between items-center hover:shadow-lg transition duration-200">
-            <span className="font-medium">{agent.name} ({agent.model}) - {agent.status}</span>
-            <div className="flex space-x-2">
-              <button onClick={() => onChatWithAgent(agent)} className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200">Chat</button>
-              <button onClick={async () => {
-                setEditingAgent(agent)
-                await loadPromptsForEditing(agent.id)
-              }} className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200">Edit</button>
-              <button onClick={() => deleteAgent(agent.id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200">Delete</button>
+          <li key={agent.id} className="bg-gradient-card p-5 rounded-xl shadow-md border border-border card-hover">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="font-semibold text-foreground text-lg">{agent.name}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{agent.model} • <span className={`badge ${agent.status === 'active' ? 'badge-success' : 'badge-warning'}`}>{agent.status}</span></p>
+              </div>
+              <div className="flex space-x-2">
+                <button onClick={() => onChatWithAgent(agent)} className="btn-primary px-4 py-2 text-sm hover-scale">Chat</button>
+                <button onClick={async () => {
+                  setEditingAgent(agent)
+                  await loadPromptsForEditing(agent.id)
+                }} className="btn-secondary px-4 py-2 text-sm hover-scale">Edit</button>
+                <button onClick={() => deleteAgent(agent.id)} className="btn-destructive px-4 py-2 text-sm hover-scale">Delete</button>
+              </div>
             </div>
           </li>
         ))}

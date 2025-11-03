@@ -1,3 +1,159 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 220 25% 97%;
+    --foreground: 220 20% 15%;
+    
+    /* Card & Surface */
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 15%;
+    
+    /* Primary - Indigo/Violet for AI theme */
+    --primary: 250 75% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 250 75% 55%;
+    
+    /* Secondary - Complementary purple */
+    --secondary: 270 50% 95%;
+    --secondary-foreground: 270 70% 30%;
+    
+    /* Accent - Electric blue for highlights */
+    --accent: 220 90% 60%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success - Green */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 142 50% 95%;
+    
+    /* Warning - Amber */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Destructive - Red */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Muted */
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 10% 45%;
+    
+    /* Border & Input */
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 250 75% 60%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(250, 75%, 60%), hsl(270, 70%, 65%));
+    --gradient-secondary: linear-gradient(180deg, hsl(220, 25%, 97%), hsl(250, 50%, 98%));
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(250, 50%, 99%));
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 20px hsl(250 75% 60% / 0.3);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Glassmorphism Card */
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 shadow-lg;
+  }
+  
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  /* Button Base */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  /* Button Variants */
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground hover:bg-primary-hover;
+    @apply shadow-md hover:shadow-lg hover:scale-105 active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+  
+  .btn-destructive {
+    @apply btn bg-destructive text-destructive-foreground hover:bg-destructive/90;
+  }
+  
+  .btn-ghost {
+    @apply btn hover:bg-muted hover:text-foreground;
+  }
+  
+  /* Input Base */
+  .input {
+    @apply w-full rounded-lg border border-input bg-card px-4 py-3;
+    @apply text-foreground placeholder:text-muted-foreground;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
+    @apply transition-all duration-200;
+  }
+  
+  /* Card with hover effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  /* Status Badge */
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
+  }
+  
+  .badge-success {
+    @apply badge bg-success-light text-success;
+  }
+  
+  .badge-warning {
+    @apply badge bg-warning/10 text-warning;
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105 active:scale-95;
+  }
+}

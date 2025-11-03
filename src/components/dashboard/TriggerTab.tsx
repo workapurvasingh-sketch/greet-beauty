@@ -45,28 +45,32 @@ const TriggerTab: React.FC = () => {
         className="mb-6 space-y-4 bg-gray-50 p-4 rounded-lg"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="name" placeholder="Name" value={editingTrigger ? editingTrigger.name : newTrigger.name} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, name: e.target.value}) : setNewTrigger({...newTrigger, name: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 transition" required />
-          <input name="trigger_type" placeholder="Trigger Type" value={editingTrigger ? editingTrigger.trigger_type : newTrigger.trigger_type} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, trigger_type: e.target.value}) : setNewTrigger({...newTrigger, trigger_type: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 transition" required />
+          <input name="name" placeholder="Name" value={editingTrigger ? editingTrigger.name : newTrigger.name} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, name: e.target.value}) : setNewTrigger({...newTrigger, name: e.target.value})} className="input" required />
+          <input name="trigger_type" placeholder="Trigger Type" value={editingTrigger ? editingTrigger.trigger_type : newTrigger.trigger_type} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, trigger_type: e.target.value}) : setNewTrigger({...newTrigger, trigger_type: e.target.value})} className="input" required />
         </div>
-        <textarea name="description" placeholder="Description" value={editingTrigger ? editingTrigger.description || '' : newTrigger.description} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, description: e.target.value}) : setNewTrigger({...newTrigger, description: e.target.value})} className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-red-500 transition" rows={3}></textarea>
+        <textarea name="description" placeholder="Description" value={editingTrigger ? editingTrigger.description || '' : newTrigger.description} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, description: e.target.value}) : setNewTrigger({...newTrigger, description: e.target.value})} className="input" rows={3}></textarea>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <select name="status" value={editingTrigger ? editingTrigger.status : newTrigger.status} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, status: e.target.value}) : setNewTrigger({...newTrigger, status: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 transition">
+          <select name="status" value={editingTrigger ? editingTrigger.status : newTrigger.status} onChange={e => editingTrigger ? setEditingTrigger({...editingTrigger, status: e.target.value}) : setNewTrigger({...newTrigger, status: e.target.value})} className="input">
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
         </div>
         <div className="flex space-x-4">
-          <button type="submit" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition duration-200">{editingTrigger ? 'Update Trigger' : 'Create Trigger'}</button>
-          {editingTrigger && <button type="button" onClick={() => setEditingTrigger(null)} className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition duration-200">Cancel</button>}
+          <button type="submit" className="btn-destructive px-6 py-3 font-semibold">{editingTrigger ? 'Update Trigger' : 'Create Trigger'}</button>
+          {editingTrigger && <button type="button" onClick={() => setEditingTrigger(null)} className="btn-secondary px-6 py-3 font-semibold">Cancel</button>}
         </div>
       </form>
-      <ul className="space-y-2">
+      <ul className="space-y-3 mt-8">
         {triggers.map(trigger => (
-          <li key={trigger.id} className="bg-gradient-to-r from-red-100 to-red-200 p-4 rounded-lg shadow-md flex justify-between items-center hover:shadow-lg transition duration-200">
-            <span className="font-medium">{trigger.name} ({trigger.trigger_type}) - {trigger.status}</span>
-            <div className="flex space-x-2">
-              <button onClick={() => setEditingTrigger(trigger)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200">Edit</button>
-              <button onClick={() => deleteTrigger(trigger.id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200">Delete</button>
+          <li key={trigger.id} className="bg-gradient-card p-5 rounded-xl shadow-md border border-border card-hover">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="font-semibold text-foreground text-lg">{trigger.name}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{trigger.trigger_type} • <span className={`badge ${trigger.status === 'active' ? 'badge-success' : 'badge-warning'}`}>{trigger.status}</span></p>
+              </div>
+              <div className="flex space-x-2">
+                <button onClick={() => setEditingTrigger(trigger)} className="btn-destructive px-4 py-2 text-sm hover-scale">Edit</button>
+                <button onClick={() => deleteTrigger(trigger.id)} className="btn-destructive px-4 py-2 text-sm hover-scale">Delete</button>
             </div>
           </li>
         ))}

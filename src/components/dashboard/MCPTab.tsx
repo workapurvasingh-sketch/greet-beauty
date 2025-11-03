@@ -125,11 +125,11 @@ const MCPTab: React.FC = () => {
   }
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">MCP Servers</h2>
-      <form onSubmit={handleSubmit} className="mb-6 space-y-4 bg-gray-50 p-4 rounded-lg">
+    <div className="glass-card p-8 rounded-2xl">
+      <h2 className="text-3xl font-bold mb-8 gradient-text">MCP Servers</h2>
+      <form onSubmit={handleSubmit} className="mb-6 space-y-4 bg-muted/50 p-6 rounded-xl border border-border">
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Mode</label>
+          <label className="block text-sm font-semibold text-foreground mb-2">Mode</label>
           <div className="flex space-x-4">
             <label className="flex items-center">
               <input type="radio" name="mode" value="cloud" checked={mode === 'cloud'} onChange={() => setMode('cloud')} className="mr-2" />
@@ -145,76 +145,82 @@ const MCPTab: React.FC = () => {
         {mode === 'cloud' ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input name="name" placeholder="Name" value={editingMCP ? editingMCP.name : newMCP.name} onChange={e => editingMCP ? setEditingMCP({...editingMCP, name: e.target.value}) : setNewMCP({...newMCP, name: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition" required />
-              <select name="transport" value={editingMCP ? editingMCP.transport : newMCP.transport} onChange={e => editingMCP ? setEditingMCP({...editingMCP, transport: e.target.value as 'sse' | 'streamable_http'}) : setNewMCP({...newMCP, transport: e.target.value as 'sse' | 'streamable_http'})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition" required>
+              <input name="name" placeholder="Name" value={editingMCP ? editingMCP.name : newMCP.name} onChange={e => editingMCP ? setEditingMCP({...editingMCP, name: e.target.value}) : setNewMCP({...newMCP, name: e.target.value})} className="input" required />
+              <select name="transport" value={editingMCP ? editingMCP.transport : newMCP.transport} onChange={e => editingMCP ? setEditingMCP({...editingMCP, transport: e.target.value as 'sse' | 'streamable_http'}) : setNewMCP({...newMCP, transport: e.target.value as 'sse' | 'streamable_http'})} className="input" required>
                 <option value="streamable_http">Streamable HTTP</option>
                 <option value="sse">SSE</option>
               </select>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input name="base_url" placeholder={`Base URL (e.g., server_url/${editingMCP ? editingMCP.transport : 'sse'})`} value={editingMCP ? editingMCP.base_url : newMCP.base_url} onChange={e => editingMCP ? setEditingMCP({...editingMCP, base_url: e.target.value}) : setNewMCP({...newMCP, base_url: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition" required />
-              <input name="api_key" placeholder="API Key" value={editingMCP ? editingMCP.api_key || '' : newMCP.api_key} onChange={e => editingMCP ? setEditingMCP({...editingMCP, api_key: e.target.value}) : setNewMCP({...newMCP, api_key: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition" />
+              <input name="base_url" placeholder={`Base URL (e.g., server_url/${editingMCP ? editingMCP.transport : 'sse'})`} value={editingMCP ? editingMCP.base_url : newMCP.base_url} onChange={e => editingMCP ? setEditingMCP({...editingMCP, base_url: e.target.value}) : setNewMCP({...newMCP, base_url: e.target.value})} className="input" required />
+              <input name="api_key" placeholder="API Key" value={editingMCP ? editingMCP.api_key || '' : newMCP.api_key} onChange={e => editingMCP ? setEditingMCP({...editingMCP, api_key: e.target.value}) : setNewMCP({...newMCP, api_key: e.target.value})} className="input" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <select name="status" value={editingMCP ? editingMCP.status : 'active'} onChange={e => editingMCP ? setEditingMCP({...editingMCP, status: e.target.value as 'active' | 'inactive'}) : setNewMCP({...newMCP, status: e.target.value as 'active' | 'inactive'})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition">
+              <select name="status" value={editingMCP ? editingMCP.status : 'active'} onChange={e => editingMCP ? setEditingMCP({...editingMCP, status: e.target.value as 'active' | 'inactive'}) : setNewMCP({...newMCP, status: e.target.value as 'active' | 'inactive'})} className="input">
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
             </div>
-            <textarea name="description" placeholder="Description" value={editingMCP ? editingMCP.description || '' : newMCP.description} onChange={e => editingMCP ? setEditingMCP({...editingMCP, description: e.target.value}) : setNewMCP({...newMCP, description: e.target.value})} className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-purple-500 transition" rows={3}></textarea>
+            <textarea name="description" placeholder="Description" value={editingMCP ? editingMCP.description || '' : newMCP.description} onChange={e => editingMCP ? setEditingMCP({...editingMCP, description: e.target.value}) : setNewMCP({...newMCP, description: e.target.value})} className="input" rows={3}></textarea>
           </>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input name="name" placeholder="Name" value={editingMCP ? editingMCP.name : newMCP.name} onChange={e => editingMCP ? setEditingMCP({...editingMCP, name: e.target.value}) : setNewMCP({...newMCP, name: e.target.value})} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition" required />
-              <select name="transport" value="stdio" className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition" disabled>
+              <input name="name" placeholder="Name" value={editingMCP ? editingMCP.name : newMCP.name} onChange={e => editingMCP ? setEditingMCP({...editingMCP, name: e.target.value}) : setNewMCP({...newMCP, name: e.target.value})} className="input" required />
+              <select name="transport" value="stdio" className="input" disabled>
                 <option value="stdio">stdio</option>
               </select>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <select name="command" value={command} onChange={e => setCommand(e.target.value as 'python' | 'uvx')} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition">
+              <select name="command" value={command} onChange={e => setCommand(e.target.value as 'python' | 'uvx')} className="input">
                 <option value="python">python</option>
                 <option value="uvx">uvx</option>
               </select>
-              <input name="server_path" placeholder="Absolute path to server" value={serverPath} onChange={e => setServerPath(e.target.value)} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-500 transition" />
+              <input name="server_path" placeholder="Absolute path to server" value={serverPath} onChange={e => setServerPath(e.target.value)} className="input" />
             </div>
-            <textarea name="description" placeholder="Description" value={editingMCP ? editingMCP.description || '' : newMCP.description} onChange={e => editingMCP ? setEditingMCP({...editingMCP, description: e.target.value}) : setNewMCP({...newMCP, description: e.target.value})} className="border rounded-lg px-4 py-3 w-full focus:ring-2 focus:ring-purple-500 transition" rows={3}></textarea>
+            <textarea name="description" placeholder="Description" value={editingMCP ? editingMCP.description || '' : newMCP.description} onChange={e => editingMCP ? setEditingMCP({...editingMCP, description: e.target.value}) : setNewMCP({...newMCP, description: e.target.value})} className="input" rows={3}></textarea>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Arguments</label>
+              <label className="block text-sm font-semibold text-foreground mb-2">Arguments</label>
               {args.map((arg, index) => (
                 <div key={index} className="flex space-x-2 mb-2">
-                  <input placeholder="Key" value={arg.key} onChange={e => updateArg(index, 'key', e.target.value)} className="border rounded-lg px-4 py-2 flex-1 focus:ring-2 focus:ring-purple-500 transition" />
-                  <input placeholder="Value" value={arg.value} onChange={e => updateArg(index, 'value', e.target.value)} className="border rounded-lg px-4 py-2 flex-1 focus:ring-2 focus:ring-purple-500 transition" />
-                  <button type="button" onClick={() => removeArg(index)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg">Remove</button>
+                  <input placeholder="Key" value={arg.key} onChange={e => updateArg(index, 'key', e.target.value)} className="input flex-1" />
+                  <input placeholder="Value" value={arg.value} onChange={e => updateArg(index, 'value', e.target.value)} className="input flex-1" />
+                  <button type="button" onClick={() => removeArg(index)} className="btn-destructive px-3 py-2">Remove</button>
                 </div>
               ))}
-              <button type="button" onClick={addArg} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">Add Argument</button>
+              <button type="button" onClick={addArg} className="btn bg-success text-success-foreground hover:bg-success/90 px-4 py-2">Add Argument</button>
             </div>
           </>
         )}
 
         <div className="flex space-x-4">
-          <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition duration-200">{editingMCP ? 'Update MCP Server' : 'Create MCP Server'}</button>
-          {editingMCP && <button type="button" onClick={() => { setEditingMCP(null); resetForm(); }} className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition duration-200">Cancel</button>}
+          <button type="submit" className="btn-primary px-6 py-3 font-semibold">{editingMCP ? 'Update MCP Server' : 'Create MCP Server'}</button>
+          {editingMCP && <button type="button" onClick={() => { setEditingMCP(null); resetForm(); }} className="btn-secondary px-6 py-3 font-semibold">Cancel</button>}
         </div>
       </form>
-      <ul className="space-y-2">
+      <ul className="space-y-3 mt-8">
         {mcps.map(mcp => (
-          <li key={mcp.id} className="bg-gradient-to-r from-purple-100 to-purple-200 p-4 rounded-lg shadow-md flex justify-between items-center hover:shadow-lg transition duration-200">
-            <div>
-              <span className="font-medium">{mcp.name} ({mcp.status}) - {mcp.transport} - {mcp.base_url}</span>
-              {mcp.args.length > 0 && (
-                <div className="text-sm text-gray-600 mt-1">
-                  Args: {mcp.args.map(arg => `${arg.key}=${arg.value}`).join(', ')}
-                </div>
-              )}
-            </div>
-            <div className="flex space-x-2">
-              <button onClick={() => toggleMCPStatus(mcp.id)} className={`px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200 ${mcp.status === 'active' ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'} text-white`}>
-                {mcp.status === 'active' ? 'Deactivate' : 'Activate'}
-              </button>
-              <button onClick={() => setEditingMCP(mcp)} className="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200">Edit</button>
-              <button onClick={() => deleteMCP(mcp.id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transform hover:scale-105 transition duration-200">Delete</button>
+          <li key={mcp.id} className="bg-gradient-card p-5 rounded-xl shadow-md border border-border card-hover">
+            <div className="flex justify-between items-center">
+              <div className="flex-1">
+                <h3 className="font-semibold text-foreground text-lg">{mcp.name}</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  <span className={`badge ${mcp.status === 'active' ? 'badge-success' : 'badge-warning'}`}>{mcp.status}</span>
+                  <span className="ml-2">{mcp.transport} • {mcp.base_url}</span>
+                </p>
+                {mcp.args.length > 0 && (
+                  <div className="text-xs text-muted-foreground mt-2">
+                    Args: {mcp.args.map(arg => `${arg.key}=${arg.value}`).join(', ')}
+                  </div>
+                )}
+              </div>
+              <div className="flex space-x-2">
+                <button onClick={() => toggleMCPStatus(mcp.id)} className={`btn px-4 py-2 text-sm hover-scale ${mcp.status === 'active' ? 'bg-success text-success-foreground hover:bg-success/90' : 'bg-warning text-warning-foreground hover:bg-warning/90'}`}>
+                  {mcp.status === 'active' ? 'Deactivate' : 'Activate'}
+                </button>
+                <button onClick={() => setEditingMCP(mcp)} className="btn-primary px-4 py-2 text-sm hover-scale">Edit</button>
+                <button onClick={() => deleteMCP(mcp.id)} className="btn-destructive px-4 py-2 text-sm hover-scale">Delete</button>
+              </div>
             </div>
           </li>
         ))}

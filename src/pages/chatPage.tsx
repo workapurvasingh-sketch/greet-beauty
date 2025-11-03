@@ -123,12 +123,12 @@ const ChatPage: React.FC<ChatPageProps> = ({ selectedAgent: initialSelectedAgent
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-background">
       {/* Agent Selector */}
-      <div className="bg-white border-b border-gray-200 p-4">
+      <div className="bg-card border-b border-border p-6 shadow-md">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Chat with Agents</h1>
-          <div className="flex flex-wrap gap-2">
+          <h1 className="text-3xl font-bold gradient-text mb-4">Chat with Agents</h1>
+          <div className="flex flex-wrap gap-3">
             {agents.map(agent => (
               <button
                 key={agent.id}
@@ -136,10 +136,10 @@ const ChatPage: React.FC<ChatPageProps> = ({ selectedAgent: initialSelectedAgent
                   setSelectedAgent(agent)
                   setMessages([]) // Clear messages when switching agents
                 }}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-5 py-2.5 rounded-lg font-medium transition-all duration-200 ${
                   selectedAgent?.id === agent.id
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
+                    : 'bg-muted text-foreground hover:bg-muted/60 border border-border'
                 }`}
               >
                 {agent.name}
@@ -147,62 +147,62 @@ const ChatPage: React.FC<ChatPageProps> = ({ selectedAgent: initialSelectedAgent
             ))}
           </div>
           {selectedAgent && (
-            <div className="mt-2 text-sm text-gray-600">
-              Selected: <span className="font-medium">{selectedAgent.name}</span> - {selectedAgent.model}
+            <div className="mt-3 text-sm text-muted-foreground">
+              Selected: <span className="font-medium text-foreground">{selectedAgent.name}</span> • {selectedAgent.model}
             </div>
           )}
         </div>
       </div>
 
       {/* Chat Interface */}
-      <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full">
+      <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-4">
         {!selectedAgent ? (
           <div className="flex-1 flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-6xl mb-4">🤖</div>
-              <h2 className="text-2xl font-bold text-gray-700 mb-2">Select an Agent</h2>
-              <p className="text-gray-500">Choose an agent from above to start chatting</p>
+            <div className="text-center animate-in">
+              <div className="text-7xl mb-6">🤖</div>
+              <h2 className="text-3xl font-bold text-foreground mb-3">Select an Agent</h2>
+              <p className="text-muted-foreground text-lg">Choose an agent from above to start chatting</p>
             </div>
           </div>
         ) : (
           <>
             {/* Messages */}
-            <div className="h-full overflow-y-auto p-4 space-y-4 bg-white rounded-lg shadow-inner">
+            <div className="h-full overflow-y-auto p-6 space-y-4 bg-card rounded-xl shadow-lg border border-border">
               {messages.length === 0 ? (
-                <div className="text-center text-gray-500 mt-8">
-                  <p>Start a conversation with {selectedAgent.name}</p>
+                <div className="text-center text-muted-foreground mt-8">
+                  <p className="text-lg">Start a conversation with {selectedAgent.name}</p>
                 </div>
               ) : (
                 messages.map(message => (
                   <div
                     key={message.id}
-                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-in`}
                   >
                     <div
-                      className={`max-w-xs lg:max-w-2xl px-4 py-3 rounded-lg shadow-sm ${
+                      className={`max-w-xs lg:max-w-2xl px-5 py-4 rounded-2xl shadow-md ${
                         message.role === 'user'
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-gray-100 text-gray-800 border border-gray-200'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-foreground border border-border'
                       }`}
                     >
                       <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</p>
 
                       {/* Token Usage for Assistant Messages */}
                       {message.role === 'assistant' && message.tokenUsage && (
-                        <div className="mt-2 pt-2 border-t border-gray-300">
-                          <div className="flex flex-wrap gap-2 text-xs text-gray-600">
+                        <div className="mt-3 pt-3 border-t border-border">
+                          <div className="flex flex-wrap gap-2 text-xs">
                             {message.tokenUsage.input_tokens !== undefined && (
-                              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                              <span className="badge bg-accent/10 text-accent">
                                 Input: {message.tokenUsage.input_tokens}
                               </span>
                             )}
                             {message.tokenUsage.output_tokens !== undefined && (
-                              <span className="bg-green-100 text-green-800 px-2 py-1 rounded">
+                              <span className="badge-success">
                                 Output: {message.tokenUsage.output_tokens}
                               </span>
                             )}
                             {message.tokenUsage.total_tokens !== undefined && (
-                              <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded font-medium">
+                              <span className="badge bg-primary/10 text-primary font-medium">
                                 Total: {message.tokenUsage.total_tokens}
                               </span>
                             )}
@@ -211,7 +211,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ selectedAgent: initialSelectedAgent
                       )}
 
                       <p className={`text-xs mt-2 ${
-                        message.role === 'user' ? 'text-purple-200' : 'text-gray-500'
+                        message.role === 'user' ? 'text-primary-foreground/70' : 'text-muted-foreground'
                       }`}>
                         {message.timestamp.toLocaleTimeString()}
                       </p>
@@ -220,15 +220,15 @@ const ChatPage: React.FC<ChatPageProps> = ({ selectedAgent: initialSelectedAgent
                 ))
               )}
               {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">
-                    <div className="flex items-center space-x-2">
+                <div className="flex justify-start animate-in">
+                  <div className="bg-muted text-foreground px-5 py-4 rounded-2xl shadow-md border border-border">
+                    <div className="flex items-center space-x-3">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                       </div>
-                      <span className="text-sm">Thinking...</span>
+                      <span className="text-sm font-medium">Thinking...</span>
                     </div>
                   </div>
                 </div>
@@ -237,16 +237,16 @@ const ChatPage: React.FC<ChatPageProps> = ({ selectedAgent: initialSelectedAgent
 
             {/* Suggestion Prompts */}
             {suggestionPrompts.length > 0 && (
-              <div className="border-t border-gray-200 p-4 bg-gray-50">
-                <div className="mb-2">
-                  <h3 className="text-sm font-medium text-gray-700">💡 Suggestion Questions</h3>
+              <div className="border-t border-border p-4 bg-muted/30 rounded-b-xl">
+                <div className="mb-3">
+                  <h3 className="text-sm font-semibold text-foreground">💡 Suggestion Questions</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {suggestionPrompts.map(prompt => (
                     <button
                       key={prompt.id}
                       onClick={() => setInputMessage(prompt.prompt)}
-                      className="bg-green-100 hover:bg-green-200 text-green-800 text-xs px-3 py-2 rounded-full border border-green-300 transition-colors hover:border-green-400"
+                      className="badge-success hover:bg-success hover:text-success-foreground transition-all duration-200 cursor-pointer"
                       title={prompt.prompt}
                     >
                       {prompt.prompt_title}
@@ -257,21 +257,21 @@ const ChatPage: React.FC<ChatPageProps> = ({ selectedAgent: initialSelectedAgent
             )}
 
             {/* Input */}
-            <div className="border-t border-gray-200 p-4 bg-white">
-              <div className="flex space-x-2">
+            <div className="border-t border-border p-4 bg-card">
+              <div className="flex space-x-3">
                 <input
                   type="text"
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={`Ask ${selectedAgent.name} something...`}
-                  className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="input"
                   disabled={isLoading}
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!inputMessage.trim() || isLoading}
-                  className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                  className="btn-primary px-8"
                 >
                   {isLoading ? 'Sending...' : 'Send'}
                 </button>
